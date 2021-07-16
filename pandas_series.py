@@ -76,8 +76,23 @@ letters = pd.Series(['hnvidduckkqxwymbimkccexbkmqygkxoyndmcxnwqarhyffsjpsrabtjzs
 letters
 
 # 1. Which letter occurs the most frequently in the letters Series?
-split_letters = letters.str.split(pat="", n=0, expand=True)         # Splits the string into individual letters (on one row tho) 
-transpose_letters = split_letters.transpose()                       # Turns the row into a column
-transpose_letters.value_counts()                                    # Groups the letters by number of occurence
-transpose_letters.value_counts().head(1)                            # Selects the letter that occured the most frequesntly: y; 13 times
+split_letters = letters.str.split(pat="", n=0, expand=True)     # Splits the string into individual letters 
+split_letters                                                   # Letters split into columns (one row)
+transpose_letters = split_letters.transpose()                   # Turns the columns into rows
+transpose_letters                                               # Display rows
+transpose_letters.value_counts()                                # Groups the letters by number of occurence
+transpose_letters.value_counts().head(1)                        # Answer: y; 13 
+
+#      This is the (better) way...  (thanks to Eli's quesiton and Brandon's assist)
+letter_list = list('hnvidduckkqxwymbimkccexbkmqygkxoyndmcxnwqarhyffsjpsrabtjzsypmzadfavyrnndndvswreauxovncxtwzpwejilzjrmmbbgbyxvjtewqthafnbkqplarokkyydtubbmnexoypulzwfhqvckdpqtpoppzqrmcvhhpwgjwupgzhiofohawytlsiyecuproguy')
+letter_series = pd.Series(letter_list)                          # Convert the list into a series
+letter_series                                                   # Check outpu
+letter_series.value_counts().head(1)                            # Answer: y; 13
+
+# 2. Which letter occurs the Least frequently?
+transpose_letters.value_counts().tail()                         # Answer: l; 4
+
+# 3. How many vowels are in the Series?
+vowels = list('aeiou')
+letter_series[letter_series.isin(vowels)].value_counts().sum()
 
