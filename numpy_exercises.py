@@ -98,7 +98,9 @@ print(squares_of_a)                                 # [  1   4   9  16  25  36  
 
 # Exercise 7 - Make a variable named odds_in_a. It should hold only the odd numbers
 
-odds_in_a = a[(a % 2 != 0)]
+mod_in_a = a%2
+print(mod_in_a)
+odds_in_a = mod_in_a[mod_in_a != 2]
 print(odds_in_a)                                    # Not working
 
 # Exercise 8 - Make a variable named evens_in_a. It should hold only the evens.
