@@ -117,6 +117,8 @@ numbers.dtype                                                   # Object
 
 # 2. How many elements are in the number Series?
 numbers.value_counts().sum()                                    # 20
+# or
+numbers.size                                                    # 20
 
 # 3. Perform the necessary manipulations by accessing Series attributes and methods to convert the numbers Series to a numeric data type.
 num_no_dollar = numbers.str.replace("$", "")                    # Remove $
@@ -131,8 +133,14 @@ just_numbers.max()                                              # Answer: 478998
 just_numbers.min()                                              # Answer: 278.6
 
 # 6. What is the range of the values in the Series?
-
+just_numbers.shape
 
 # 7. Bin the data into 4 equally sized intervals or bins and output how many values fall into each bin.
+bin_just_numbers = pd.cut(just_numbers, 4).value_counts()
+bin_just_numbers
 
 # 8. Plot the binned data in a meaningful way. Be sure to include a title and axis labels.
+bin_just_numbers.plot.bar(title='Frequency of Numbers',
+                          color='steelblue').set(xlabel='Numeric Grouping',
+                                                ylabel='Frequency')
+plt.show()
