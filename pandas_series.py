@@ -96,3 +96,17 @@ transpose_letters.value_counts().tail()                         # Answer: l; 4
 vowels = list('aeiou')
 letter_series[letter_series.isin(vowels)].value_counts().sum()
 
+# 4. How many consonants are in the Series?
+letter_series.value_counts().sum() - letter_series[letter_series.isin(vowels)].value_counts().sum()
+#                                                               # Answer: 166
+
+# 5. Create a Series that has all of the same letters but uppercased
+letter_series.str.upper()
+
+# 6. Create a bar plot of the frequencies of the 6 most commonly occuring letters.
+import matplotlib.pyplot as plt
+letter_series.value_counts().head(6).plot.bar()
+plt.show()                                                      # Vertical bar plot of top 6
+
+# 7. 
+
