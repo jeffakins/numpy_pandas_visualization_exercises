@@ -108,5 +108,31 @@ import matplotlib.pyplot as plt
 letter_series.value_counts().head(6).plot.bar()
 plt.show()                                                      # Vertical bar plot of top 6
 
-# 7. 
+# New Series
+numbers = pd.Series(list(['$796,459.41', '$278.60', '$482,571.67', '$4,503,915.98', '$2,121,418.3', '$1,260,813.3', '$87,231.01', '$1,509,175.45', '$4,138,548.00', '$2,848,913.80', '$594,715.39', '$4,789,988.17', '$4,513,644.5', '$3,191,059.97', '$1,758,712.24', '$4,338,283.54', '$4,738,303.38', '$2,791,759.67', '$769,681.94', '$452,650.23']))
+numbers
 
+# 1. What is the data type of the numbers Series?
+numbers.dtype                                                   # Object
+
+# 2. How many elements are in the number Series?
+numbers.value_counts().sum()                                    # 20
+
+# 3. Perform the necessary manipulations by accessing Series attributes and methods to convert the numbers Series to a numeric data type.
+num_no_dollar = numbers.str.replace("$", "")                    # Remove $
+just_numbers = num_no_dollar.str.replace(",", "")               # Remove commas
+just_numbers = just_numbers.astype(float)                       # Convert to float type
+just_numbers                                                    # dtype: float64
+
+# 4. Run the code to discover the maximum value from the Series.
+just_numbers.max()                                              # Answer: 4789988.17
+
+# 5. Run the code to discover the minimum value from the Series.
+just_numbers.min()                                              # Answer: 278.6
+
+# 6. What is the range of the values in the Series?
+
+
+# 7. Bin the data into 4 equally sized intervals or bins and output how many values fall into each bin.
+
+# 8. Plot the binned data in a meaningful way. Be sure to include a title and axis labels.
