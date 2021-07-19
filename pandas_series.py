@@ -144,3 +144,32 @@ bin_just_numbers.plot.bar(title='Frequency of Numbers',
                           color='steelblue').set(xlabel='Numeric Grouping',
                                                 ylabel='Frequency')
 plt.show()
+
+# New Series
+exam_scores = pd.Series([60, 86, 75, 62, 93, 71, 60, 83, 95, 78, 65, 72, 69, 81, 96, 80, 85, 92, 82, 78])
+
+# 1. How many elements are in the exam_scores Series?
+exam_scores.size                                                # Answer: 20
+
+# 2. Run the code to discover the minimum, the maximum, the mean, and the median scores for the exam_scores Series.
+exam_scores.min()                                               # Answer: 60
+exam_scores.max()                                               # Answer: 96
+exam_scores.mean()                                              # Answer: 78.15
+exam_scores.median()                                            # Answer: 79
+
+# 3. Plot the Series in a meaningful way and make sure your chart has a title and axis labels.
+bins = pd.IntervalIndex.from_tuples([(60, 69), (70, 79), (80, 89), (90, 100)])      # Grouped/binned by letter grade 
+pd.cut(exam_scores, bins).value_counts(sort=False).plot.bar(title='Exam Grades', color='steelblue').set(xlabel='Grade', ylabel='Frequency')
+plt.show()                                                      # Got it to work!
+
+# 4. Write the code necessary to implement a curve for your exam_grades Series and save this as curved_grades. 
+#    Add the necessary points to the highest grade to make it 100, and add the same number of points to every other score in the Series as well.
+curved_exam_scores = exam_scores + 4                            # Curved the grades by adding 4 points to all scores
+pd.cut(curved_exam_scores, bins).value_counts(sort=False).plot.bar(title='Exam Grades', color='steelblue').set(xlabel='Grade', ylabel='Frequency')
+plt.show()                                                      # Bar plot showes a shift right
+
+# 5. Use a method to convert each of the numeric values in the curved_grades Series into a categorical value of letter grades. 
+#    For example, 86 should be a 'B' and 95 should be an 'A'. Save this as a Series named letter_grades.
+
+
+# 6. Plot your new categorical letter_grades Series in a meaninful way and include a title and axis labels.
