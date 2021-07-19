@@ -62,16 +62,19 @@ fruit_series[fruit_series.isin(vowels)]                 # No worky
 max(fruit_series, key=len)                              # 'honeycrisp apple'
 
 # 5. Write the code to get the string values with 5 or more letters in the name.
-
+fruit_series.str.len() >= 5
 
 # 6. Use the .apply method with a lambda function to find the fruit(s) containing the letter "o" two or more times.
+fruit_series[fruit_series.apply(lambda fruit: fruit.count('o') > 1)]
 
 # 7. Write the code to get only the string values containing the substring "berry".
+fruit_series[fruit_series.str.contains('berry')]
 
 # 8. Write the code to get only the string values containing the substring "apple".
+fruit_series[fruit_series.str.contains('apple')]
 
 # 9. Which string value contains the most vowels?
-
+fruit_series[fruit_series.str.count('[aeiou]').max()]   # 'honeycrisp apple'      
 
 #--------------------------------------------------------------------------
 
