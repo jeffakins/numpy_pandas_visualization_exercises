@@ -48,27 +48,70 @@ df['overall_grade'] = df[['math', 'english', 'reading']].mean(axis=1).round(1)
 df.drop(columns='passing_english')
 
 
+
+
 # 2. Load the mpg dataset. Read the documentation for the dataset and use it for the following questions:
 mpg = data('mpg')
 #    a. How many rows and columns are there?
-mpg.info()                                              # 234 Rows; 10 Columns
+mpg.info()                                                  # 234 Rows; 10 Columns
 mpg.describe()
 
 #    b. What are the data types of each column?
-mpg.info()                                              # Run code to see answer
+mpg.info()                                                  # Run code to see answer
 
 #    c. Summarize the dataframe with .info and .describe
 mpg.info()                                              
 mpg.describe()
 
 #    d. Rename the cty column to city.
-mpg.rename(columns={'cty': 'city'})                     # Complete
+mpg.rename(columns={'cty': 'city'})                         # Complete
 
 #    e. Rename the hwy column to highway.
+mpg.rename(columns={'hwy': 'highway'})                      # Complete
+
 #    f. Do any cars have better city mileage than highway mileage?
-#    g. Create a column named mileage_difference this column should contain the difference between highway and city mileage for each car.
+mpg[(mpg.cty > mpg.hwy)]                                    # Answer: no
+
+#    g. Create a column named mileage_difference 
+#       this column should contain the difference between highway and city mileage for each car.
+mpg['hwy-cty'] = (mpg.hwy - mpg.cty)
+mpg
+
 #    h. Which car (or cars) has the highest mileage difference?
+mpg.sort_values('hwy-cty', ascending=False).head(2)         # Answer: Honda Civic and VW Beetle
+
 #    i. Which compact class car has the lowest highway mileage? The best?
+mpg[mpg['class'] == "compact"].sort_values('hwy').min()     # Answer: Audi A4
+mpg[mpg['class'] == "compact"].sort_values('hwy').max()     # Answer: VW Jetta
+
 #    j. Create a column named average_mileage that is the mean of the city and highway mileage.
+mpg['average_milage'] = mpg[['cty', 'hwy']].mean(axis=1)
+mpg
+
 #    k. Which dodge car has the best average mileage? The worst?
+mpg[mpg['manufacturer'] == 'dodge'].sort_values('average_milage').min()         # Answer: Worst: Caravan
+mpg[mpg['manufacturer'] == 'dodge'].sort_values('average_milage').max()         # Answer: Best: Ram
+# This data seems questionable based on the results...
+
+
+
+# 3. Load the Mammals dataset. Read the documentation for it, and use the data to answer these questions:
+mammals = data('mammals')
+#    a. How many rows and columns are there?
+mammals.info()
+mammals.head()
+mammals.describe()
+len(mammals)
+mammals                                                     # 3x62
+
+#    b. What are the data types?
+mammals.info()                                              # floats
+
+#    c. Summarize the dataframe with .info and .describe
+mammals.info()
+mammals.describe()
+
+#    d. What is the the weight of the fastest animal?
+#    e. What is the overal percentage of specials?
+#    f. How many animals are hoppers that are above the median speed? What percentage is this?
 
