@@ -197,5 +197,5 @@ curved_letter_grade
 
 # 6. Plot your new categorical letter_grades Series in a meaninful way and include a title and axis labels.
 curved_letter_grade.value_counts()
-curved_letter_grade.value_counts(sort=False).sort_index().plot.bar(title='Exam Grades', color='steelblue').set(xlabel='Grade', ylabel='Frequency')
+curved_letter_grade.value_counts(sort=False).sort_index(ascending=False).plot.bar(title='Exam Grades', color='steelblue').set(xlabel='Grade', ylabel='Frequency')
 plt.show()
