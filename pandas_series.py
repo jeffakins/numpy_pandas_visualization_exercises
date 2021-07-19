@@ -45,19 +45,24 @@ fruit_series.value_counts().nsmallest(n=1, keep="all")
 #--------------------------------------------------------------------------
 
 # Exercises Part II
+import pandas as pd
+fruit_series = pd.Series(["kiwi", "mango", "strawberry", "pineapple", "gala apple", "honeycrisp apple", "tomato", "watermelon", "honeydew", "kiwi", "kiwi", "kiwi", "mango", "blueberry", "blackberry", "gooseberry", "papaya"])
 
 #1. Capitalize all the string values in fruits.
-
-fruit_series.to_string().capitalize()
+fruit_series.str.capitalize()
 
 # 2. Count the letter "a" in all the string values (use string vectorization).
+fruit_series.str.count("a").sum()                       # Answer: 14
 
 # 3. Output the number of vowels in each and every string value.
+vowels = list('aeiou')
+fruit_series[fruit_series.isin(vowels)]                 # No worky
 
 # 4. Write the code to get the longest string value from fruits.
-max(fruit_series, key=len)
+max(fruit_series, key=len)                              # 'honeycrisp apple'
 
 # 5. Write the code to get the string values with 5 or more letters in the name.
+
 
 # 6. Use the .apply method with a lambda function to find the fruit(s) containing the letter "o" two or more times.
 
@@ -170,6 +175,24 @@ plt.show()                                                      # Bar plot showe
 
 # 5. Use a method to convert each of the numeric values in the curved_grades Series into a categorical value of letter grades. 
 #    For example, 86 should be a 'B' and 95 should be an 'A'. Save this as a Series named letter_grades.
+def score_to_letter_grade(score):
+    if score >= 0 and score <= 59:
+        return "F"
+    elif score >= 60 and score <= 69:
+        return "D"
+    elif score >= 70 and score <= 79:
+        return "C"
+    elif score >= 80 and score <= 89:
+        return "B"
+    elif score >= 90 and score <= 100:
+        return "A"
+    else:
+        return "Not a valid score"
 
+curved_letter_grade = curved_exam_scores.apply(score_to_letter_grade)
+curved_letter_grade
 
 # 6. Plot your new categorical letter_grades Series in a meaninful way and include a title and axis labels.
+curved_letter_grade.value_counts()
+curved_letter_grade.value_counts(sort=False).sort_index().plot.bar(title='Exam Grades', color='steelblue').set(xlabel='Grade', ylabel='Frequency')
+plt.show()
