@@ -42,28 +42,63 @@ pd.read_sql('SELECT * FROM titles LIMIT 5 OFFSET 50', get_db_url(hostname, usern
 # Exercises II
 
 # 1. Copy the users and roles DataFrames from the examples above.
+users = pd.DataFrame({
+    'id': [1, 2, 3, 4, 5, 6],
+    'name': ['bob', 'joe', 'sally', 'adam', 'jane', 'mike'],
+    'role_id': [1, 2, 3, 3, np.nan, np.nan]
+})
+users
+
+roles = pd.DataFrame({
+    'id': [1, 2, 3, 4],
+    'name': ['admin', 'author', 'reviewer', 'commenter']
+})
+roles
 
 # 2. What is the result of using a right join on the DataFrames?
+users_roles_right = users.merge(roles, left_on='role_id', right_on='id', how='right', indicator=True)
+users_roles_right
 
 # 3. What is the result of using an outer join on the DataFrames?
+users_roles_outer = users.merge(roles, left_on='role_id', right_on='id', how='outer', indicator=True)
+users_roles_outer
 
 # 4. What happens if you drop the foreign keys from the DataFrames and try to merge them?
+roles_no_id = roles.drop(columns='id')
+roles_no_id
+test_no_role_id = users.merge(roles_no_id, left_on='role_id', right_on='id', how='outer', indicator=True)
+test_no_role_id                 # Answer: It does't work because there is no foreign key to join on
 
 # 5. Load the mpg dataset from PyDataset.
+from pydataset import data
+mpg = data('mpg')
 
 # 6. Output and read the documentation for the mpg dataset.
+data('mpg', show_doc=True)
 
 # 7. How many rows and columns are in the dataset?
+len(mpg)
+mpg.describe()
+mpg.loc[:,:]                                            # [234 rows x 11 columns]
 
 # 8. Check out your column names and perform any cleanup you may want on them.
+mpg.head(1)
+mpg.rename(columns={'drv': 'drive'}, inplace=True)
+mpg
 
 # 9. Display the summary statistics for the dataset.
+mpg.info()
+mpg.describe()
 
 # 10. How many different manufacturers are there?
+ mpg.count('')                                          # 7
 
 # 11. How many different models are there?
+mpg.groupby('manufacturer').count()                     # ??
 
-# 12. Create a column named mileage_difference like you did in the DataFrames exercises; this column should contain the difference between highway and city mileage for each car.
+# 12. Create a column named mileage_difference like you did in the DataFrames exercises; 
+#     this column should contain the difference between highway and city mileage for each car.
+
 
 # 13. Create a column named average_mileage like you did in the DataFrames exercises; this is the mean of the city and highway mileage.
 
