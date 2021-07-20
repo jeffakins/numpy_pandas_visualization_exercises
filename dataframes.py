@@ -27,7 +27,7 @@ df
 #All the datasets loaded from the pydataset library will be pandas dataframes.
 # 1. Copy the code from the lesson to create a dataframe full of student grades.
 #    a. Create a column named passing_english that indicates whether each student has a passing grade in english.
-df['passing_english'] = df.english > 70
+df['passing_english'] = df.english >= 70
 df
 
 #    b. Sort the english grades by the passing_english column. How are duplicates handled?
@@ -64,7 +64,7 @@ mpg.info()
 mpg.describe()
 
 #    d. Rename the cty column to city.
-mpg.rename(columns={'cty': 'city'})                         # Complete
+mpg.rename(columns={'cty': 'city'})                         # Complete - use <inplace = True> to save the info to your variable
 
 #    e. Rename the hwy column to highway.
 mpg.rename(columns={'hwy': 'highway'})                      # Complete
