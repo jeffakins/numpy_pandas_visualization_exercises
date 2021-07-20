@@ -96,13 +96,14 @@ mpg[mpg['manufacturer'] == 'dodge'].sort_values('average_milage').max()         
 
 
 # 3. Load the Mammals dataset. Read the documentation for it, and use the data to answer these questions:
-mammals = data('mammals')
+mammals = data('Mammals')
+data('Mammals', show_doc=True)
 #    a. How many rows and columns are there?
 mammals.info()
 mammals.head()
 mammals.describe()
-len(mammals)
-mammals                                                     # 3x62
+len(mammals)                                                # 107
+mammals                                                     # 5x107
 
 #    b. What are the data types?
 mammals.info()                                              # floats
@@ -112,6 +113,14 @@ mammals.info()
 mammals.describe()
 
 #    d. What is the the weight of the fastest animal?
-#    e. What is the overal percentage of specials?
-#    f. How many animals are hoppers that are above the median speed? What percentage is this?
+mammals
+mammals.sort_values('speed', ascending=False)               # 55
 
+#    e. What is the overal percentage of specials?
+mammals["specials"].value_counts()
+(10/107)*100                                                # 9.35%
+
+#    f. How many animals are hoppers that are above the median speed? What percentage is this?
+mammals['speed'].mean()                                     # 46.2
+mammals[(mammals['hoppers'] == True) & (mammals['speed'] > mammals['speed'].mean())].count() # 7
+(7/107)*100                                                 # 6.5%
