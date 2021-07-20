@@ -17,7 +17,8 @@ def get_db_url(hostname, username, password, database_name):
 # 2. Use your function to obtain a connection to the employees database.
 #url = f'mysql+pymysql://{username}:{password}@{hostname}/employees'
 
-pd.read_sql('SELECT * FROM employees LIMIT 5 OFFSET 50', get_db_url(hostname, username, password,'employees'))
+employee_employees = pd.read_sql('SELECT * FROM employees LIMIT 20', get_db_url(hostname, username, password,'employees'))
+employee_employees.head()
 
 # 3. Once you have successfully run a query:
 #    a. Intentionally make a typo in the database url. What kind of error message do you see?
@@ -26,8 +27,11 @@ pd.read_sql('SELECT * FROM employees LIMIT 5 OFFSET 50', get_db_url(hostname, us
         # Another long list of error messages
 
 # 4. Read the employees and titles tables into two separate DataFrames.
-pd.read_sql('SELECT * FROM titles LIMIT 5 OFFSET 50', get_db_url(hostname, username, password,'employees'))
+titles_employees = pd.read_sql('SELECT * FROM titles LIMIT 20', get_db_url(hostname, username, password,'employees'))
+titles_employees
+
 # 5. How many rows and columns do you have in each DataFrame? Is that what you expected?
+print(employee_employees.head())
 
 # 6. Display the summary statistics for each DataFrame.
 
@@ -66,8 +70,8 @@ users_roles_outer
 # 4. What happens if you drop the foreign keys from the DataFrames and try to merge them?
 roles_no_id = roles.drop(columns='id')
 roles_no_id
-test_no_role_id = users.merge(roles_no_id, left_on='role_id', right_on='id', how='outer', indicator=True)
-test_no_role_id                 # Answer: It does't work because there is no foreign key to join on
+# test_no_role_id = users.merge(roles_no_id, left_on='role_id', right_on='id', how='outer', indicator=True)
+# test_no_role_id                 # Answer: It does't work because there is no foreign key to join on
 
 # 5. Load the mpg dataset from PyDataset.
 from pydataset import data
@@ -80,6 +84,7 @@ data('mpg', show_doc=True)
 len(mpg)
 mpg.describe()
 mpg.loc[:,:]                                            # [234 rows x 11 columns]
+mpg.shape                                               # (234, 11)
 
 # 8. Check out your column names and perform any cleanup you may want on them.
 mpg.head(1)
@@ -89,21 +94,31 @@ mpg
 # 9. Display the summary statistics for the dataset.
 mpg.info()
 mpg.describe()
+mpg.manufacturer.mode()
 
 # 10. How many different manufacturers are there?
- mpg.count('')                                          # 7
+# mpg.count('')                                          # 7
+mpg.manufacturer.unique().size
 
 # 11. How many different models are there?
 mpg.groupby('manufacturer').count()                     # ??
+mpg.model.unique().size
 
 # 12. Create a column named mileage_difference like you did in the DataFrames exercises; 
 #     this column should contain the difference between highway and city mileage for each car.
+mpg.hwy - mpg.cty
 
+# 13. Create a column named average_mileage like you did in the DataFrames exercises; 
+#     this is the mean of the city and highway mileage.
+# mpg['average_milage'] = mpg[["cty", "hwy"]].mean(axis=1)
 
-# 13. Create a column named average_mileage like you did in the DataFrames exercises; this is the mean of the city and highway mileage.
-
-# 14. Create a new column on the mpg dataset named is_automatic that holds boolean values denoting whether the car has an automatic transmission.
+# 14. Create a new column on the mpg dataset named is_automatic that holds boolean values denoting 
+#     whether the car has an automatic transmission.
+#mpg.trans.str.contains("auto")
 
 # 15. Using the mpg dataset, find out which which manufacturer has the best miles per gallon on average?
 
+
 # 16. Do automatic or manual cars have better miles per gallon?
+
+# mpg["is_automatic"] = np.where(mpg.trans.str.contains('auto'), True, False)
