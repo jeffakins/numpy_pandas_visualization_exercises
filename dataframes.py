@@ -117,10 +117,10 @@ mammals
 mammals.sort_values('speed', ascending=False)               # 55
 
 #    e. What is the overal percentage of specials?
-mammals["specials"].value_counts()
+mammals["specials"].value_counts()                          # mammals.specials.sum()/len(mammals) #Another method
 (10/107)*100                                                # 9.35%
 
 #    f. How many animals are hoppers that are above the median speed? What percentage is this?
 mammals['speed'].mean()                                     # 46.2
 mammals[(mammals['hoppers'] == True) & (mammals['speed'] > mammals['speed'].mean())].count() # 7
-(7/107)*100                                                 # 6.5%
+(7/107)*100                                                 # 6.5%  # Can divide by len()
