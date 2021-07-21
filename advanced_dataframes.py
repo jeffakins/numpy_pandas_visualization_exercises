@@ -31,7 +31,7 @@ titles_employees = pd.read_sql('SELECT * FROM titles LIMIT 20', get_db_url(hostn
 titles_employees
 
 # 5. How many rows and columns do you have in each DataFrame? Is that what you expected?
-print(employee_employees.head())
+employee_employees.head()
 
 # 6. Display the summary statistics for each DataFrame.
 
@@ -122,3 +122,30 @@ mpg.hwy - mpg.cty
 # 16. Do automatic or manual cars have better miles per gallon?
 
 # mpg["is_automatic"] = np.where(mpg.trans.str.contains('auto'), True, False)
+
+
+
+#-------------------------------------------------------------------------------------------------------
+#Exercises III
+
+# 1. Use your get_db_url function to help you explore the data from the chipotle database.
+chipotle = pd.read_sql('SELECT * FROM orders', get_db_url(hostname, username, password,'chipotle'))
+print(chipotle.head(20))
+# 2. What is the total price for each order?
+#chip_tab = pd.crosstab(chipotle.order_id, chipotle.item_price, margins=True)
+
+chip_tab = chipotle.groupby(['order_id', 'quantity']).item_price.sum()
+print(chip_tab)
+
+# 3. What are the most popular 3 items?
+pop = chipotle.groupby(['item_name', 'quantity']).quantity.sum()
+print(pop)
+# 4. Which item has produced the most revenue?
+
+# 5. Join the employees and titles DataFrames together.
+
+# 6. For each title, find the hire date of the employee that was hired most recently with that title.
+
+# 7. Write the code necessary to create a cross tabulation of the number of titles by department. 
+#    (Hint: this will involve a combination of SQL code to pull the necessary data and python/pandas 
+#    code to perform the manipulations.)
