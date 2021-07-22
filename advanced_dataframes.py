@@ -17,7 +17,7 @@ def get_db_url(hostname, username, password, database_name):
 # 2. Use your function to obtain a connection to the employees database.
 #url = f'mysql+pymysql://{username}:{password}@{hostname}/employees'
 
-employee_employees = pd.read_sql('SELECT * FROM employees LIMIT 20', get_db_url(hostname, username, password,'employees'))
+employee_employees = pd.read_sql('SELECT * FROM employees', get_db_url(hostname, username, password,'employees'))
 employee_employees.head()
 
 # 3. Once you have successfully run a query:
@@ -27,20 +27,26 @@ employee_employees.head()
         # Another long list of error messages
 
 # 4. Read the employees and titles tables into two separate DataFrames.
-titles_employees = pd.read_sql('SELECT * FROM titles LIMIT 20', get_db_url(hostname, username, password,'employees'))
+titles_employees = pd.read_sql('SELECT * FROM titles', get_db_url(hostname, username, password,'employees'))
 titles_employees
 
 # 5. How many rows and columns do you have in each DataFrame? Is that what you expected?
-print(employee_employees.size)
+employee_employees.shape                                        # (300024, 6)
+
 
 # 6. Display the summary statistics for each DataFrame.
+employee_employees.describe()
+titles_employees.describe()
 
 # 7. How many unique titles are in the titles DataFrame?
+print(titles_employees.head())
+print(titles_employees.title.unique())                      # 7
 
 # 8. What is the oldest date in the to_date column?
+print("oldest date: ", titles_employees.to_date.min())      # 1985-03-01
 
 # 9. What is the most recent date in the to_date column?
-
+print("most recent date: ", titles_employees.to_date.max()) # 9999-01-01
 
 #----------------------------------------------------------------------------------------
 # Exercises II
