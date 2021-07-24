@@ -10,15 +10,15 @@ from env import hostname, username, password
 #    formatted like in the example at the start of this lesson.
 
 # Function to get a url:
-def get_db_url(hostname, username, password, database_name):
-    url = f'mysql+pymysql://{username}:{password}@{hostname}/{database_name}'
-    return url
+# def get_db_url(hostname, username, password, database_name):
+#     url = f'mysql+pymysql://{username}:{password}@{hostname}/{database_name}'
+#     return url
 
 # 2. Use your function to obtain a connection to the employees database.
 #url = f'mysql+pymysql://{username}:{password}@{hostname}/employees'
 
-employee_employees = pd.read_sql('SELECT * FROM employees', get_db_url(hostname, username, password,'employees'))
-employee_employees.head()
+# employee_employees = pd.read_sql('SELECT * FROM employees', get_db_url(hostname, username, password,'employees'))
+# employee_employees.head()
 
 # 3. Once you have successfully run a query:
 #    a. Intentionally make a typo in the database url. What kind of error message do you see?
@@ -27,26 +27,26 @@ employee_employees.head()
         # Another long list of error messages
 
 # 4. Read the employees and titles tables into two separate DataFrames.
-titles_employees = pd.read_sql('SELECT * FROM titles', get_db_url(hostname, username, password,'employees'))
-titles_employees
+# titles_employees = pd.read_sql('SELECT * FROM titles', get_db_url(hostname, username, password,'employees'))
+# titles_employees
 
 # 5. How many rows and columns do you have in each DataFrame? Is that what you expected?
-employee_employees.shape                                        # (300024, 6)
+#employee_employees.shape                                        # (300024, 6)
 
 
 # 6. Display the summary statistics for each DataFrame.
-employee_employees.describe()
-titles_employees.describe()
+#employee_employees.describe()
+#titles_employees.describe()
 
 # 7. How many unique titles are in the titles DataFrame?
-print(titles_employees.head())
-print(titles_employees.title.unique())                      # 7
+#print(titles_employees.head())
+#print(titles_employees.title.unique())                      # 7
 
 # 8. What is the oldest date in the to_date column?
-print("oldest date: ", titles_employees.to_date.min())      # 1985-03-01
+#print("oldest date: ", titles_employees.to_date.min())      # 1985-03-01
 
 # 9. What is the most recent date in the to_date column?
-print("most recent date: ", titles_employees.to_date.max()) # 9999-01-01
+#print("most recent date: ", titles_employees.to_date.max()) # 9999-01-01
 
 #----------------------------------------------------------------------------------------
 # Exercises II
@@ -84,22 +84,22 @@ from pydataset import data
 mpg = data('mpg')
 
 # 6. Output and read the documentation for the mpg dataset.
-data('mpg', show_doc=True)
+#data('mpg', show_doc=True)
 
 # 7. How many rows and columns are in the dataset?
 len(mpg)
-mpg.describe()
+#mpg.describe()
 mpg.loc[:,:]                                            # [234 rows x 11 columns]
 mpg.shape                                               # (234, 11)
 
 # 8. Check out your column names and perform any cleanup you may want on them.
-mpg.head(1)
+print(mpg.head())
 mpg.rename(columns={'drv': 'drive'}, inplace=True)
 mpg
 
 # 9. Display the summary statistics for the dataset.
-mpg.info()
-mpg.describe()
+# mpg.info()
+# mpg.describe()
 mpg.manufacturer.mode()
 
 # 10. How many different manufacturers are there?
@@ -118,6 +118,7 @@ mpg.hwy - mpg.cty
 #     this is the mean of the city and highway mileage.
 # mpg['average_milage'] = mpg[["cty", "hwy"]].mean(axis=1)
 
+
 # 14. Create a new column on the mpg dataset named is_automatic that holds boolean values denoting 
 #     whether the car has an automatic transmission.
 #mpg.trans.str.contains("auto")
@@ -135,18 +136,18 @@ mpg.hwy - mpg.cty
 #Exercises III
 
 # 1. Use your get_db_url function to help you explore the data from the chipotle database.
-chipotle = pd.read_sql('SELECT * FROM orders', get_db_url(hostname, username, password,'chipotle'))
-chipotle.head(20)
-chipotle.info()
+# chipotle = pd.read_sql('SELECT * FROM orders', get_db_url(hostname, username, password,'chipotle'))
+# chipotle.head(20)
+# chipotle.info()
 
 # 2. What is the total price for each order?
 #chip_tab = pd.crosstab(chipotle.order_id, chipotle.item_price, margins=True)
 
-chip_tab = chipotle.groupby(['order_id', 'quantity']).item_price.sum()
+#chip_tab = chipotle.groupby(['order_id', 'quantity']).item_price.sum()
 #print(chip_tab)
 
 # 3. What are the most popular 3 items?
-pop = chipotle.groupby(['item_name', 'quantity']).quantity.sum()
+#pop = chipotle.groupby(['item_name', 'quantity']).quantity.sum()
 #print(pop)
 # 4. Which item has produced the most revenue?
 
