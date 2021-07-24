@@ -106,8 +106,7 @@ mpg.manufacturer.mode()
 # mpg.count('')                                          # 7
 mpg.manufacturer.unique().size
 
-# 11. How many different models are there?
-mpg.groupby('manufacturer').count()                     # ??
+# 11. How many different models are there?               # 38
 mpg.model.unique().size
 
 # 12. Create a column named mileage_difference like you did in the DataFrames exercises; 
@@ -116,17 +115,19 @@ mpg.hwy - mpg.cty
 
 # 13. Create a column named average_mileage like you did in the DataFrames exercises; 
 #     this is the mean of the city and highway mileage.
-# mpg['average_milage'] = mpg[["cty", "hwy"]].mean(axis=1)
-
+mpg['average_milage'] = mpg[["cty", "hwy"]].mean(axis=1)
+mpg
 
 # 14. Create a new column on the mpg dataset named is_automatic that holds boolean values denoting 
 #     whether the car has an automatic transmission.
-#mpg.trans.str.contains("auto")
+mpg['is_automatic'] = mpg.trans.str.contains("auto")
+mpg
 
 # 15. Using the mpg dataset, find out which which manufacturer has the best miles per gallon on average?
-
+mpg.groupby(by='manufacturer').mean().sort_values(by='average_milage', ascending=False).head(1)
 
 # 16. Do automatic or manual cars have better miles per gallon?
+mpg.groupby(by='is_automatic').mean()   #manual
 
 # mpg["is_automatic"] = np.where(mpg.trans.str.contains('auto'), True, False)
 
